@@ -1,0 +1,10 @@
+import { useEffect } from 'react'
+import { BrowserRouter, Route, Routes } from 'react-router-dom'
+import { Layout } from './components/Layout'
+import { DashboardPage } from './pages/DashboardPage'
+import { TransactionsPage } from './pages/TransactionsPage'
+import { BudgetsPage } from './pages/BudgetsPage'
+import { SettingsPage } from './pages/SettingsPage'
+import { Onboarding } from './components/Onboarding'
+import { useAppStore } from './store/useAppStore'
+export const App=()=>{const theme=useAppStore(s=>s.settings.theme);const onboarded=useAppStore(s=>s.settings.onboardingComplete);useEffect(()=>{const dark=theme==='dark'||(theme==='system'&&matchMedia('(prefers-color-scheme: dark)').matches);document.documentElement.classList.toggle('dark',dark)},[theme]);return <BrowserRouter><Routes><Route element={<Layout/>}><Route path="/" element={<DashboardPage/>}/><Route path="/transactions" element={<TransactionsPage/>}/><Route path="/budgets" element={<BudgetsPage/>}/><Route path="/settings" element={<SettingsPage/>}/><Route path="*" element={<div className="card">Page not found.</div>}/></Route></Routes>{!onboarded&&<Onboarding/>}</BrowserRouter>}

@@ -1,0 +1,2 @@
+import { Component, type ReactNode } from 'react'
+export class ErrorBoundary extends Component<{children:ReactNode},{failed:boolean}>{state={failed:false};static getDerivedStateFromError(){return {failed:true}}render(){return this.state.failed?<main className="p-8"><h1 className="text-2xl font-bold">Something went wrong</h1><p className="mt-2">Your data is safe in this browser. Reload the page, then use Settings to export a backup.</p><button className="btn mt-4" onClick={()=>location.reload()}>Reload</button></main>:this.props.children}}
